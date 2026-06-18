@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dot5w1ccjbipl" path="res://icon.svg" id="1_6ba58"]
 [ext_resource type="PackedScene" uid="uid://cqc2e7a8wd461" path="res://jogador.tscn" id="2_lgngo"]
+[ext_resource type="PackedScene" uid="uid://4y6smtq5s132" path="res://inimigo.tscn" id="3_fw4w5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lgngo"]
 texture = ExtResource("1_6ba58")
@@ -168,7 +169,10 @@ tile_map_data = PackedByteArray("AAAAADsAAgABAAEAAAABADsAAgABAAEAAAACADsAAgABAAE
 tile_set = SubResource("TileSet_fw4w5")
 
 [node name="Jogador" parent="." unique_id=283082632 instance=ExtResource("2_lgngo")]
-position = Vector2(17, 927)
+position = Vector2(65, 930)
 
 [node name="Camera2D" type="Camera2D" parent="Jogador" unique_id=538472909]
 zoom = Vector2(3, 3)
+
+[node name="Inimigo" parent="." unique_id=1825258499 instance=ExtResource("3_fw4w5")]
+position = Vector2(17, 919)

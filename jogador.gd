@@ -1,9 +1,11 @@
 extends CharacterBody2D
 
-const VELOCIDADE = 400.0
+const VELOCIDADE = 600.0
 
 var direcao_atual = Vector2.ZERO
 var esta_deslizando = false
+var inimigo: Node2D = null
+var historico_de_posicoes: Array[Vector2] = []
 
 # Nova linha: Cria uma referência para a sua câmera
 @onready var camera: Camera2D = $Camera2D
@@ -11,6 +13,8 @@ var esta_deslizando = false
 func _ready() -> void:
 	# Procura o nó do cenário (mude para o nome exato do seu nó se não for 'TileMapLayer')
 	var mapa = get_node_or_null("../TileMapLayer")
+	# Busca o inimigo na cena principal (ajuste o nome se na aba Cena estiver diferente de 'Inimigo')
+	inimigo = get_node_or_null("../Inimigo")
 	
 	if mapa:
 		# Pega a área usada pelos blocos desenhados (em formato de grade)
@@ -47,9 +51,16 @@ func verificar_comandos():
 	elif Input.is_action_just_pressed("ui_up"):
 		nova_direcao = Vector2.UP
 		
+	# Se o jogador apertou alguma tecla, inicia o deslize
 	if nova_direcao != Vector2.ZERO:
-		direcao_atual = nova_direcao
+		direcao_atual = nova_direcao # ou nova_direcao dependendo de como está seu script
 		esta_deslizando = true
+		# Salva a posição onde o jogador iniciou o movimento
+		historico_de_posicoes.append(position)
+		
+		# SEGREDO: Se encontrou o inimigo no mapa, manda ele ligar o Timer!
+		if inimigo != null and inimigo.has_method("ativar_cronometro"):
+			inimigo.ativar_cronometro()
 
 func parar_jogador():
 	esta_deslizando = false
@@ -58,11 +69,25 @@ func parar_jogador():
 	# Pega os dados exatos do impacto com a parede
 	if get_slide_collision_count() > 0:
 		var colisao = get_slide_collision(0)
-		# A 'normal' é um vetor que aponta para fora da parede atingida
 		var normal_da_parede = colisao.get_normal()
 		
-		# Empurra o jogador levemente para fora da parede para desgrudar de vez
-		position += normal_da_parede * 1.5
+		# 1. Se bateu no teto ou no chão (Normal aponta para cima/baixo no eixo Y)
+		if abs(normal_da_parede.y) > 0.5:
+			# Afasta o jogador na vertical para não colar
+			position.y += normal_da_parede.y * 1.5
+			# O SEGREDO: Como ele bateu verticalmente, o X dele DEVE ser arredondado 
+			# para travar exatamente no centro do corredor horizontal!
+			position.x = round(position.x)
+			
+		# 2. Se bateu nas paredes laterais (Normal aponta para os lados no eixo X)
+		elif abs(normal_da_parede.x) > 0.5:
+			# Afasta o jogador na horizontal
+			position.x += normal_da_parede.x * 1.5
+			# O SEGREDO: Como ele bateu horizontalmente, o Y dele DEVE ser arredondado
+			# para travar exatamente no centro do corredor vertical!
+			position.y = round(position.y)
 	
 	direcao_atual = Vector2.ZERO
+	# Garante que o rastro salve a posição perfeitamente alinhada
+	historico_de_posicoes.append(position)
 	position = position.round()
