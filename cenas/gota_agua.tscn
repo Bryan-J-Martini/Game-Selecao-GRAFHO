@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://hel8kq2urtbs"]
+
+[ext_resource type="Script" uid="uid://babfcf6jfl5kx" path="res://scripts/gota_agua.gd" id="1_iqnhi"]
+[ext_resource type="Texture2D" uid="uid://dggesd4gs6q6b" path="res://assets/sprints/water_cannon.png" id="1_pb14s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb14s"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 0, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqnhi"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 45, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vfus"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 90, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rrve"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 90, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfpt8"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 90, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oav6j"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 45, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux3nl"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 45, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctq17"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 0, 60, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsldt"]
+atlas = ExtResource("1_pb14s")
+region = Rect2(0, 0, 60, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jk0m1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pb14s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqnhi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vfus")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rrve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfpt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oav6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ux3nl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctq17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsldt")
+}],
+"loop": true,
+"name": &"gota_agua",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6ux51"]
+radius = 8.0
+
+[node name="Gota" type="Node2D" unique_id=1577924659]
+
+[node name="GotaAgua" type="Area2D" parent="." unique_id=1556710068]
+script = ExtResource("1_iqnhi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="GotaAgua" unique_id=475726845]
+position = Vector2(-1.999999, -0.75)
+scale = Vector2(0.6, 0.54444444)
+sprite_frames = SubResource("SpriteFrames_jk0m1")
+animation = &"gota_agua"
+autoplay = "gota_agua"
+frame = 3
+frame_progress = 0.36291355
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GotaAgua" unique_id=64603689]
+shape = SubResource("CircleShape2D_6ux51")

@@ -1,44 +1,59 @@
 extends CharacterBody2D
 
-const VELOCIDADE = 600.0
+const VELOCIDADE = 500.0
 
 var direcao_atual = Vector2.ZERO
 var esta_deslizando = false
 var inimigo: Node2D = null
 var historico_de_posicoes: Array[Vector2] = []
 
+var jogo_comecou: bool = true
+
 # Nova linha: Cria uma referência para a sua câmera
 @onready var camera: Camera2D = $Camera2D
 
 func _ready() -> void:
-	# Procura o nó do cenário (mude para o nome exato do seu nó se não for 'TileMapLayer')
+	# Procura o nó do cenário
 	var mapa = get_node_or_null("../TileMapLayer")
-	# Busca o inimigo na cena principal (ajuste o nome se na aba Cena estiver diferente de 'Inimigo')
+	
+	# CORREÇÃO DE CAMINHO: Como vimos na sua árvore de cenas, o Inimigo está com "I" maiúsculo!
 	inimigo = get_node_or_null("../Inimigo")
 	
 	if mapa:
-		# Pega a área usada pelos blocos desenhados (em formato de grade)
 		var limites_mapa = mapa.get_used_rect()
-		# Pega o tamanho de cada quadradinho (ex: 16 pixels)
 		var tamanho_bloco = mapa.tile_set.tile_size
 		
-		# Multiplica a grade pelo tamanho dos pixels para descobrir o tamanho real em tela
 		camera.limit_left = limites_mapa.position.x * tamanho_bloco.x
 		camera.limit_right = limites_mapa.end.x * tamanho_bloco.x
 		camera.limit_top = limites_mapa.position.y * tamanho_bloco.y
 		camera.limit_bottom = limites_mapa.end.y * tamanho_bloco.y
 		
 func _physics_process(_delta: float) -> void:
+	# TRAVA DE INÍCIO: Se o botão "JOGAR" não foi clicado, o jogador não se move!
+	if not jogo_comecou:
+		$AnimatedSprite2D.play("parado") # Garante que ele fique na animação de parado
+		velocity = Vector2.ZERO
+		return
+
 	if not esta_deslizando:
 		verificar_comandos()
 	
 	if esta_deslizando:
 		velocity = direcao_atual * VELOCIDADE
 		
-		# Move o personagem. Se houver colisão, processa a parada.
 		if move_and_slide():
 			parar_jogador()
 
+	if velocity != Vector2.ZERO:
+		$AnimatedSprite2D.play("correr")
+		
+		if velocity.x < 0:
+			$AnimatedSprite2D.flip_h = true
+		elif velocity.x > 0:
+			$AnimatedSprite2D.flip_h = false
+	else:
+		$AnimatedSprite2D.play("parado")
+		
 func verificar_comandos():
 	var nova_direcao = Vector2.ZERO
 	

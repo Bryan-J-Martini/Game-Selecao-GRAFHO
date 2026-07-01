@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://cfbssi4tn5u62"]
+
+[ext_resource type="Texture2D" uid="uid://dqd2ud5iv2vse" path="res://assets/sprints/fogo.png" id="1_guypt"]
+[ext_resource type="Script" uid="uid://ddwcny45gj6c8" path="res://scripts/animated_sprite_2d.gd" id="2_vgami"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_haj0h"]
+atlas = ExtResource("1_guypt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3rmb"]
+atlas = ExtResource("1_guypt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4pyv"]
+atlas = ExtResource("1_guypt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyytj"]
+atlas = ExtResource("1_guypt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy4lm"]
+atlas = ExtResource("1_guypt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15oha"]
+atlas = ExtResource("1_guypt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fp1d4"]
+atlas = ExtResource("1_guypt")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttogr"]
+atlas = ExtResource("1_guypt")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g1s1n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_haj0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3rmb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4pyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyytj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy4lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15oha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fp1d4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttogr")
+}],
+"loop": true,
+"name": &"MiniFogo",
+"speed": 5.0
+}]
+
+[node name="mini_fogo" type="Node2D" unique_id=1996690242]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1120123309]
+sprite_frames = SubResource("SpriteFrames_g1s1n")
+animation = &"MiniFogo"
+autoplay = "MiniFogo"
+frame = 7
+frame_progress = 0.46927822
+script = ExtResource("2_vgami")

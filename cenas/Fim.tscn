@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cy2duvipvyvja"]
+
+[ext_resource type="Script" uid="uid://kvat7lq08g40" path="res://scripts/fim.gd" id="1_kx2vp"]
+
+[sub_resource type="SystemFont" id="SystemFont_qd631"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ko3br"]
+font = SubResource("SystemFont_qd631")
+font_size = 61
+font_color = Color(3.657937e-06, 0.51610047, 0.6715062, 1)
+outline_size = 6
+outline_color = Color(0, 0.22745098, 0.07058824, 1)
+shadow_size = 25
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="ColorRect" unique_id=1484179374]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+color = Color(0.0627451, 0.47843137, 0.5019608, 0.09411765)
+script = ExtResource("1_kx2vp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1843309049]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.0
+offset_top = -77.5
+offset_right = 176.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 19
+
+[node name="JogarNovamente" type="Button" parent="VBoxContainer" unique_id=379616014]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Jogar Novamente"
+
+[node name="Sair" type="Button" parent="VBoxContainer" unique_id=1500440197]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Sair
+"
+
+[node name="Label" type="Label" parent="." unique_id=943398302]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -336.0
+offset_top = 54.0
+offset_right = 336.0
+offset_bottom = 225.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/line_spacing = 0
+text = "Você Salvou a Floresta!"
+label_settings = SubResource("LabelSettings_ko3br")
+
+[connection signal="pressed" from="VBoxContainer/JogarNovamente" to="." method="_on_jogar_novamente_pressed"]
+[connection signal="pressed" from="VBoxContainer/Sair" to="." method="_on_sair_pressed"]
